@@ -1,0 +1,40 @@
+﻿@model Todo.ViewModels.AddTodoViewModel
+
+@{
+    ViewData["Title"] = "Todo";
+}
+
+<div class="panel panel-default">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model.TodoList)
+            {
+                <tr>
+                    <td>@item.TodoItemId</td>
+                    <td>@item.Name</td>
+                    <td>
+                        <form asp-controller="Todo" asp-action="DeleteItem" asp-route-id="@item.TodoItemId" method="post">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-controller="Todo" asp-action="UpdateTodo" asp-route-id="@item.TodoItemId" method="get">
+                            <button type="submit" class="btn btn-info">Update</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="panel-footer">
+    <partial name="_AddTodoPartial" model="new TodoItem()" />
+</div>
+
